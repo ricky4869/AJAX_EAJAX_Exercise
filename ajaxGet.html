@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .wrap {
+            width: 100%;
+        }
+
+        .container {
+            width: 1200px;
+            margin: auto;
+        }
+
+        .AQI_grading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .AQI_grading h2{
+            font-size: 46px;
+            padding: 20px;
+        }
+
+        .AQI_item table {
+            border-collapse: collapse;
+        }
+
+        .AQI_item th {
+            padding: 16px 10px;
+        }
+
+        .AQI_item td {
+            padding: 5px 10px;
+        }
+
+        .AQI_item th,
+        .AQI_item td {
+            border: 3px solid #000;
+            width: 100px;
+            height: 20px;
+            font-weight: 900;
+            text-align: center;
+            /* box-sizing: border-box; */
+        }
+
+        .AQI_item th:nth-child(1) {
+            background: #95F084;
+        }
+
+        .AQI_item th:nth-child(2) {
+            background: #ffe695;
+        }
+
+        .AQI_item th:nth-child(3) {
+            background: #ffaf6a;
+        }
+
+        .AQI_item th:nth-child(4) {
+            background: #ff5757;
+        }
+
+        .AQI_item th:nth-child(5) {
+            background: #9777ff;
+        }
+
+        .AQI_item th:nth-child(6) {
+            background: #ad1774;
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="wrap">
+        <div class="container">
+            <div class="AQI_grading">
+                <h2>空氣品質指標(AQI)</h2>
+                <div class="AQI_item">
+                    <table>
+                        <tr>
+                            <th>0～50</th>
+                            <th>51～100</th>
+                            <th>101～150</th>
+                            <th>151～200</th>
+                            <th>201～300</th>
+                            <th>301～400</th>
+                        </tr>
+                        <tr>
+                            <td>良好</td>
+                            <td>普通</td>
+                            <td>對敏感族群不健康</td>
+                            <td>對所有族群不健康</td>
+                            <td>非常不健康</td>
+                            <td>危害</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="header">
+                <h2>台南市</h2>
+                <p></p> 更新
+            </div>
+
+            <div class="content">
+                <div class="item col-4">
+                    <div class="area">台南市</div>
+                    <div class="value">999</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+
+<script>
+
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('get', 'https://opendata.epa.gov.tw/api/v1/AQI?%24skip=0&%24top=1000&%24format=json', true);
+
+    xhr.send(null);
+    xhr.onload = function () {
+        var str = JSON.parse(xhr.responseText);
+        //  document.querySelector('.content').textContent = str[0].County;
+    }
+
+
+
+</script>
+
+</html>
