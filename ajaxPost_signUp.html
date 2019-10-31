@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-family: 'Noto Sans TC', sans-serif;
+            /* color: #fff; */
+            outline: none;
+
+        }
+
+        .wrap{
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(30deg, #298, #262) fixed center center / 100% 100%;
+        }
+
+        .container{
+            width: 1000px;
+            height: 100vh;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .signBar{
+            padding: 20px;
+            background: #dddddd;
+            border-radius: 10px;
+        }
+
+        .signBar h2{
+            color: #262;
+            text-align: center;
+        }
+
+        .signBar input{
+            margin-bottom: 20px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .signBar .btn{
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #299;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .signBar .btn:active{
+            background-color: #262;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+
+
+    <div class="wrap">
+        <div class="container">
+
+            <div class="signBar">
+
+                <h2>註冊帳號</h2>
+
+                <p>帳號:</p>
+                <input type="text" class="email">
+                <br>
+                <p>密碼:</p>
+                <input type="password" class="pass">
+                <br>
+                <button class="btn">註冊</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    var btn = document.querySelector('.btn');
+
+    btn.addEventListener('click', signUp, false);
+
+
+    function signUp(){
+        var emailValue = document.querySelector('.email').value;
+        var passValue = document.querySelector('.pass').value;
+        var account = {};
+
+        account.email = emailValue;
+        account.password = passValue;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('post', 'https://hexschool-tutorial.herokuapp.com/api/signup', true);
+        xhr.setRequestHeader('Content-type','application/json');
+        var data = JSON.stringify(account);
+        xhr.send(data);
+
+        xhr.onload = function(){
+            var str = JSON.parse(xhr.responseText);
+            alert(str.message);
+            if(str.message == '帳號註冊成功'){
+                window.location.assign('ajaxPost_signIn.html')
+            }
+        }
+    }
+
+
+</script>
+
+</html>
