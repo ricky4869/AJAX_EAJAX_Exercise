@@ -35,7 +35,7 @@
 
         .AQI_grading h2 {
             font-size: 46px;
-            padding-right: 20px;
+            /* padding-right: 20px; */
         }
 
         .AQI_item table {
@@ -83,6 +83,24 @@
         .AQI_item th:nth-child(6) {
             background: #ad1774;
 
+        }
+
+        .title {
+            padding-right: 20px;
+
+        }
+
+        .title select {
+            width: 100%;
+            border: 3px solid #000;
+            padding: 6px 0 6px 10px;
+            font-size: 20px;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        .title select option {
+            text-align: center;
         }
 
 
@@ -141,7 +159,7 @@
             transition: all .5s;
         }
 
-        .content .item .bar:hover{
+        .content .item .bar:hover {
             box-shadow: 0 0 8px rgba(0, 0, 0, .8);
         }
 
@@ -181,7 +199,33 @@
     <div class="wrap">
         <div class="container">
             <div class="AQI_grading">
-                <h2>空氣品質指標(AQI)</h2>
+                <div class="title">
+                    <h2>空氣品質指標(AQI)</h2>
+                    <select name="" id="">
+                        <option value="">臺北市</option>
+                        <option value="">新北市</option>
+                        <option value="">基隆市</option>
+                        <option value="">桃園市</option>
+                        <option value="">新竹市</option>
+                        <option value="">新竹縣</option>
+                        <option value="">苗栗縣</option>
+                        <option value="">臺中市</option>
+                        <option value="">彰化縣</option>
+                        <option value="">南投縣</option>
+                        <option value="">雲林縣</option>
+                        <option value="">嘉義市</option>
+                        <option value="" selected>臺南市</option>
+                        <option value="">高雄市</option>
+                        <option value="">屏東縣</option>
+                        <option value="">宜蘭縣</option>
+                        <option value="">花蓮縣</option>
+                        <option value="">臺東縣</option>
+                        <option value="">澎湖縣</option>
+                        <option value="">金門縣</option>
+                        <option value="">連江縣</option>
+                    </select>
+                </div>
+
                 <div class="AQI_item">
                     <table>
                         <tr>
@@ -206,7 +250,7 @@
             </div>
 
             <div class="header">
-                <h2>臺南市</h2>
+                <h2></h2>
                 <!-- <div class="dash"></div> -->
                 <div class="time">
                     <p class="PublishTime">2019-12-1217:00</p>
@@ -231,6 +275,7 @@
 
 <script>
 
+
     var xhr = new XMLHttpRequest();
 
     xhr.open('get', 'https://opendata.epa.gov.tw/api/v1/AQI?%24skip=0&%24top=1000&%24format=json', true);
@@ -240,47 +285,59 @@
         var str = JSON.parse(xhr.responseText);
         var conTent = document.querySelector('.content');
         var PublishTime = document.querySelector('.PublishTime')
-        var a = '';
-        var city = document.querySelector('.header h2').textContent;
+        var city = document.querySelector('.header h2');
+        var selectBar = document.querySelector('select');
+        var selectIndex = selectBar.selectedIndex;
+        selectChange();
+        function selectChange() {
+            var a = '';
+            var selectBar = document.querySelector('select');
+            var selectIndex = selectBar.selectedIndex;
+            city.textContent = selectBar.options[selectIndex].textContent;
+            var cityText = document.querySelector('.header h2').textContent;
+            for (i = 0; i < str.length; i++) {
+                if (str[i].County == cityText) {
 
 
-        for (i = 0; i < str.length; i++) {
-            if (str[i].County == city) {
-
-
-                var items = `<div class="item">
+                    var items = `<div class="item">
                     <div class="bar">
                         <div class="area">${str[i].SiteName}</div>
                         <div class="value">${str[i].AQI}</div>
                     </div>
                 </div>`
 
-                a += items;
+                    a += items;
 
-                conTent.innerHTML = a;
+                    conTent.innerHTML = a;
 
-                PublishTime.innerHTML = str[i].PublishTime;
+                    PublishTime.innerHTML = str[i].PublishTime;
+
+
+                }
             }
-        }
-        var aqiItem = document.querySelectorAll('.item');
-        var aqiValue = document.querySelectorAll('.value');
-        for (i = 0; i < aqiItem.length; i++) {
-            if (aqiValue[i].textContent > 0 && aqiValue[i].textContent <= 50) {
-                aqiValue[i].style.backgroundColor = '#95F084';
-            } if (aqiValue[i].textContent > 50 && aqiValue[i].textContent <= 100) {
-                aqiValue[i].style.backgroundColor = '#ffe695';
-            } if (aqiValue[i].textContent > 100 && aqiValue[i].textContent <= 150) {
-                aqiValue[i].style.backgroundColor = '#ffaf6a';
-            } if (aqiValue[i].textContent > 150 && aqiValue[i].textContent <= 200) {
-                aqiValue[i].style.backgroundColor = '#ff5757';
-            } if (aqiValue[i].textContent > 200 && aqiValue[i].textContent <= 300) {
-                aqiValue[i].style.backgroundColor = '#9777ff';
-            } if (aqiValue[i].textContent > 300) {
-                aqiValue[i].style.backgroundColor = '#ad1774';
+
+            var aqiItem = document.querySelectorAll('.item');
+            var aqiValue = document.querySelectorAll('.value');
+            for (i = 0; i < aqiItem.length; i++) {
+                if (aqiValue[i].textContent > 0 && aqiValue[i].textContent <= 50) {
+                    aqiValue[i].style.backgroundColor = '#95F084';
+                } if (aqiValue[i].textContent > 50 && aqiValue[i].textContent <= 100) {
+                    aqiValue[i].style.backgroundColor = '#ffe695';
+                } if (aqiValue[i].textContent > 100 && aqiValue[i].textContent <= 150) {
+                    aqiValue[i].style.backgroundColor = '#ffaf6a';
+                } if (aqiValue[i].textContent > 150 && aqiValue[i].textContent <= 200) {
+                    aqiValue[i].style.backgroundColor = '#ff5757';
+                } if (aqiValue[i].textContent > 200 && aqiValue[i].textContent <= 300) {
+                    aqiValue[i].style.backgroundColor = '#9777ff';
+                } if (aqiValue[i].textContent > 300) {
+                    aqiValue[i].style.backgroundColor = '#ad1774';
+                }
             }
+
+
         }
 
-        
+        selectBar.addEventListener('change', selectChange);
     }
 
 
