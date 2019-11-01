@@ -3,4 +3,4 @@
 
 [ajaxGet](ajaxGet "Title")
 
-[ajaxPostSignUp](ajaxGet "Title")
+[ajaxPostSignUp](ajaxPostSignUp "Title")
