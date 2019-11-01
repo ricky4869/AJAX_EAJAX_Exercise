@@ -206,7 +206,7 @@
             </div>
 
             <div class="header">
-                <h2>台南市</h2>
+                <h2>臺南市</h2>
                 <!-- <div class="dash"></div> -->
                 <div class="time">
                     <p class="PublishTime">2019-12-1217:00</p>
@@ -241,10 +241,11 @@
         var conTent = document.querySelector('.content');
         var PublishTime = document.querySelector('.PublishTime')
         var a = '';
+        var city = document.querySelector('.header h2').textContent;
 
 
         for (i = 0; i < str.length; i++) {
-            if (str[i].County == '臺南市') {
+            if (str[i].County == city) {
 
 
                 var items = `<div class="item">
