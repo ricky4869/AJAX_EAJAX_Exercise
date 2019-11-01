@@ -2,3 +2,5 @@
 
 
 [ajaxGet](ajaxGet "Title")
+
+[ajaxPostSignUp](ajaxGet "Title")
