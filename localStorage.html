@@ -118,10 +118,7 @@
                 </div>
 
                 <ul class="listBar">
-                    <li>
-                        麵包
-                        <a href="#"><i class="fas fa-times"></i></a>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -129,27 +126,36 @@
 </body>
 
 <script>
-
+    var listBar = document.querySelector('.listBar');
     var btn = document.querySelector('.btn');
-    var list = "";
-    var ary = {};
+    var data = JSON.parse(localStorage.getItem('listData')) || [];
 
-    function addList() {
+    updataList(data);
+
+    function addList(e) {
+        // e.preventDefault();
         var keyin = document.querySelector('.keyin').value;
-        var listBar = document.querySelector('.listBar');
-        localStorage.setItem('listItem', keyin);
+        var txt = {
+            listItem: keyin
+        };
+        data.push(txt);
+        updataList(data);
+        localStorage.setItem('listData', JSON.stringify(data));
+    }
 
-        for (let i = 0; i < array.length; i++) {
-            list += `<li data-num="${i}}">
-                    ${localStorage.getItem('listItem')}
+    function updataList(Items) {
+        var list = "";
+
+        for (let i = 0; i < Items.length; i++) {
+
+            list += `<li data-num="${i}">
+                    ${data[i].listItem}
                     <a href="#"><i class="fas fa-times"></i></a>
                 </li>`;
 
-            listBar.innerHTML = list;
+
         }
-
-
-
+        listBar.innerHTML = list;
     }
 
     btn.addEventListener('click', addList);
